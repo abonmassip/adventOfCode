@@ -1,4 +1,7 @@
 var md5 = require('md5');
+
+console.time('time')
+
 const readline = require('readline').createInterface({
   input: process.stdin,
   output: process.stdout
@@ -18,6 +21,9 @@ function findHash(key, hashStart) {
     secretNumber++
     combination = `${key}${secretNumber}`;
   }
+
+  console.timeEnd('time')
+
   console.log(`the secret number is ${secretNumber}`);
   console.log(`the hash is ${md5(combination)}`);
 }
