@@ -5,11 +5,19 @@ const readline = require('readline').createInterface({
 })
 
 readline.question(`Enter your secret key: `, (key) => {
-  findHash(key);
-  readline.close();
+  readline.question(`How should the hash start: `, (hashStart) => {
+    findHash(key, hashStart);
+    readline.close();
+  })
 });
 
-function findHash(key) {
-  console.log(key);
-  console.log(md5(key));
+function findHash(key, hashStart) {
+  let secretNumber = 0;
+  let combination = `${key}${secretNumber}`;
+  while (!md5(combination).startsWith(hashStart)) {
+    secretNumber++
+    combination = `${key}${secretNumber}`;
+  }
+  console.log(`the secret number is ${secretNumber}`);
+  console.log(`the hash is ${md5(combination)}`);
 }
