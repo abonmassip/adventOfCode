@@ -22,15 +22,20 @@ fs.readFile('./input.txt', (err, data) => {
         }
       })
       
+      const [[xStart, yStart],[xEnd, yEnd]] = coords;
+      
       function modifyRange(state) {
-        const [[xStart, yStart],[xEnd, yEnd]] = coords;
-
         for(y = Number(yStart); y <= Number(yEnd); y++) {
           for(x = Number(xStart); x <= Number(xEnd); x++) {
             if (state === 'toggle') {
               grid[y][x] = grid[y][x] ? 0 : 1;
+              grid2[y][x] = grid2[y][x] + 2;
             } else {
               grid[y][x] = state;
+              grid2[y][x] = grid2[y][x] + state;
+            }
+            if (state === 0 && grid2[y][x] > 0) {
+              grid2[y][x] = grid2[y][x] -1;
             }
           }
         }
@@ -59,6 +64,8 @@ fs.readFile('./input.txt', (err, data) => {
   })
 
   let litLights = 0;
+  let brightness = 0;
+
   grid.forEach(array => {
     array.forEach(num => {
       if(num === 1){
@@ -66,8 +73,15 @@ fs.readFile('./input.txt', (err, data) => {
       }
     })
   })
+  
+  grid2.forEach(array => {
+    array.forEach(num => {
+      brightness = brightness + num;
+    })
+  })
 
   console.timeEnd('time');
 
-  console.log(`there are ${litLights} lights lit`);
+  console.log(`Part 1: there are ${litLights} lights lit`);
+  console.log(`Part 2: the total brightness is ${brightness}`);
 })
