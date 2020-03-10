@@ -8,7 +8,10 @@ fs.readFile('./input.txt', (err, data) => {
 
   const columns = Array(1000).fill([]);
   const grid = columns.map(item => item = Array(1000).fill(0));
-  
+
+  const columns2 = Array(1000).fill([]);
+  const grid2 = columns2.map(item => item = Array(1000).fill(0));
+
   inputArray.forEach(instruction => {
     if (instruction) {
       let coords = [];
